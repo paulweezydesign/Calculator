@@ -5,6 +5,7 @@ function App() {
   const inputRef = useRef(null);
   const resultRef = useRef(null);
   const [result, setResult] = useState(0);
+  const [input, setInput] = useState('');
 
   function plus(e) {
     e.preventDefault();
@@ -29,16 +30,20 @@ function App() {
     setResult((result) => result / Number(inputRef.current.value));
   }
 
-  function resetInput(e) {
-    // Add the code for the resetInput function
-    e.preventDefault();
-    setResult(0);
-  }
 
+    
+    const resetInput = (e) => {
+      e.preventDefault();
+      setInput('');
+    };
+  
+  const handleUserInput = (e) => {
+    setInput(e.target.value);
+  };
   function resetResult(e) {
     // Add the code for the resetResult function
     e.preventDefault();
-    setResult(0);
+    setResult('');
   }
 
   return (
@@ -50,6 +55,7 @@ function App() {
         <h3>{result}</h3>
         <p ref={resultRef}>{/* add the value of the current total */}</p>
         <input
+          value={input} placeholder='type a number' onChange={handleUserInput} 
           pattern="[0-9]"
           ref={inputRef}
           type="number"
@@ -63,7 +69,9 @@ function App() {
         {/* Add the divide button */}
         <button onClick={divide}>divide</button>
         {/* Add the resetInput button */}
-        <button onClick={resetInput}>reset input</button>
+        <button className="reset-input" onClick={resetInput}>
+          Reset Input
+        </button>
         {/* Add the resetResult button */}
         <button onClick={resetResult}>reset result</button>
       </form>
